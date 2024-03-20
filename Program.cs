@@ -27,6 +27,7 @@ while (continuar)
 
     Console.WriteLine("\n[ CONTROLES ]");
     Console.WriteLine("[ + ] Adicionar novo item ao pedido");
+    Console.WriteLine("[ Barra de espaço ] Exibir detalhes do pedido");
     Console.WriteLine("[ Tab ] - Ver produtos em estoque");
     Console.WriteLine("\nPressione Esc para sair...");
 
@@ -43,6 +44,9 @@ while (continuar)
             }
             pedido.AdicionarItens(produtos);
             break;
+        case ConsoleKey.Spacebar:
+            ExibirDetalhesDoPedido();
+            break;
         case ConsoleKey.Tab:
             ExibirProdutosEmEstoque();
             break;
@@ -52,6 +56,24 @@ while (continuar)
         default:
             break;
     }
+}
+
+void ExibirDetalhesDoPedido()
+{
+    if (pedido.Finalizado || pedido.Itens.Count == 0)
+    {
+        Console.Clear();
+        Console.WriteLine("Não há pedido em andamento no momento.");
+        Thread.Sleep(1000);
+    }
+    else
+    {
+        Console.WriteLine("");
+        pedido.ExibirPedido();
+        Console.WriteLine("\nPressione qualquer tecla para voltar...");
+        Console.ReadKey(true);
+    }
+    Console.Clear();
 }
 
 void ExibirProdutosEmEstoque()
